@@ -32,7 +32,9 @@ export function DotQR(props: DotQRProps): React.ReactElement {
       ))}
 
       {/* Finder patterns */}
-      {scene.finders.map((finder, i) => renderFinder(finder, i))}
+      {scene.finders.map((finder, i) => (
+        <React.Fragment key={i}>{renderFinder(finder)}</React.Fragment>
+      ))}
 
       {/* Logo */}
       {scene.logo && (
@@ -49,32 +51,32 @@ export function DotQR(props: DotQRProps): React.ReactElement {
   )
 }
 
-function n(x: number): number {
+function round2(x: number): number {
   return Math.round(x * 100) / 100
 }
 
-function renderFinder(finder: FinderShape, key: number): React.ReactElement {
+function renderFinder(finder: FinderShape): React.ReactElement {
   const { x, y, cellSize, style, color } = finder
-  const cx = n(x + 3.5 * cellSize)
-  const cy = n(y + 3.5 * cellSize)
+  const cx = round2(x + 3.5 * cellSize)
+  const cy = round2(y + 3.5 * cellSize)
 
   if (style === 'squares') {
     return (
-      <g key={key}>
+      <g>
         <rect
-          x={n(x)}
-          y={n(y)}
-          width={n(7 * cellSize)}
-          height={n(7 * cellSize)}
+          x={round2(x)}
+          y={round2(y)}
+          width={round2(7 * cellSize)}
+          height={round2(7 * cellSize)}
           fill="none"
           stroke={color}
-          strokeWidth={n(cellSize)}
+          strokeWidth={round2(cellSize)}
         />
         <rect
-          x={n(x + 2 * cellSize)}
-          y={n(y + 2 * cellSize)}
-          width={n(3 * cellSize)}
-          height={n(3 * cellSize)}
+          x={round2(x + 2 * cellSize)}
+          y={round2(y + 2 * cellSize)}
+          width={round2(3 * cellSize)}
+          height={round2(3 * cellSize)}
           fill={color}
         />
       </g>
@@ -83,23 +85,23 @@ function renderFinder(finder: FinderShape, key: number): React.ReactElement {
 
   if (style === 'rounded') {
     return (
-      <g key={key}>
+      <g>
         <rect
-          x={n(x)}
-          y={n(y)}
-          width={n(7 * cellSize)}
-          height={n(7 * cellSize)}
-          rx={n(1.5 * cellSize)}
+          x={round2(x)}
+          y={round2(y)}
+          width={round2(7 * cellSize)}
+          height={round2(7 * cellSize)}
+          rx={round2(1.5 * cellSize)}
           fill="none"
           stroke={color}
-          strokeWidth={n(cellSize)}
+          strokeWidth={round2(cellSize)}
         />
         <rect
-          x={n(x + 2 * cellSize)}
-          y={n(y + 2 * cellSize)}
-          width={n(3 * cellSize)}
-          height={n(3 * cellSize)}
-          rx={n(0.75 * cellSize)}
+          x={round2(x + 2 * cellSize)}
+          y={round2(y + 2 * cellSize)}
+          width={round2(3 * cellSize)}
+          height={round2(3 * cellSize)}
+          rx={round2(0.75 * cellSize)}
           fill={color}
         />
       </g>
@@ -108,19 +110,19 @@ function renderFinder(finder: FinderShape, key: number): React.ReactElement {
 
   // style === 'circles'
   return (
-    <g key={key}>
+    <g>
       <circle
         cx={cx}
         cy={cy}
-        r={n(3.5 * cellSize)}
+        r={round2(3.5 * cellSize)}
         fill="none"
         stroke={color}
-        strokeWidth={n(cellSize)}
+        strokeWidth={round2(cellSize)}
       />
       <circle
         cx={cx}
         cy={cy}
-        r={n(1.5 * cellSize)}
+        r={round2(1.5 * cellSize)}
         fill={color}
       />
     </g>
