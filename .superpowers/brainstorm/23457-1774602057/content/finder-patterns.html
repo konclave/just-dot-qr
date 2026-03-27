@@ -1,0 +1,61 @@
+<h2>Finder Pattern Style</h2>
+<p class="subtitle">QR codes have three corner "finder" squares. How should they look in dot-qr?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="squares" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#000">
+      <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+        <!-- outer square -->
+        <rect x="2" y="2" width="86" height="86" rx="0" fill="none" stroke="white" stroke-width="8"/>
+        <!-- inner square -->
+        <rect x="22" y="22" width="46" height="46" rx="0" fill="white"/>
+        <!-- dots around it (circles for data modules) -->
+        <circle cx="5" cy="50" r="3.5" fill="white" opacity="0.3"/>
+        <circle cx="85" cy="50" r="3.5" fill="white" opacity="0.3"/>
+        <circle cx="50" cy="85" r="3.5" fill="white" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>Classic Squares</h3>
+      <p>Traditional square finder patterns — maximizes QR scanner compatibility</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="rounded" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#000">
+      <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+        <!-- outer rounded square -->
+        <rect x="2" y="2" width="86" height="86" rx="16" fill="none" stroke="white" stroke-width="8"/>
+        <!-- inner rounded square -->
+        <rect x="22" y="22" width="46" height="46" rx="8" fill="white"/>
+        <circle cx="5" cy="50" r="3.5" fill="white" opacity="0.3"/>
+        <circle cx="85" cy="50" r="3.5" fill="white" opacity="0.3"/>
+        <circle cx="50" cy="85" r="3.5" fill="white" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>Rounded Squares</h3>
+      <p>Rounded corners on finder patterns — softer look, still highly compatible</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="circles" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#000">
+      <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+        <!-- outer circle ring -->
+        <circle cx="45" cy="45" r="43" fill="none" stroke="white" stroke-width="8"/>
+        <!-- inner circle -->
+        <circle cx="45" cy="45" r="23" fill="white"/>
+        <circle cx="5" cy="50" r="3.5" fill="white" opacity="0.3"/>
+        <circle cx="85" cy="50" r="3.5" fill="white" opacity="0.3"/>
+        <circle cx="50" cy="85" r="3.5" fill="white" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>Full Circles</h3>
+      <p>Circular finder patterns — most cohesive look with the dot modules, slightly lower compatibility</p>
+    </div>
+  </div>
+
+</div>
