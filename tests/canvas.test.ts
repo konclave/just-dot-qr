@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { createCanvas } from 'canvas'
 import { buildScene } from '../src/core/scene'
 import { renderCanvas } from '../src/renderers/canvas'

@@ -41,6 +41,7 @@ export function renderCanvas(
       ctx.fillRect(x + 2 * cellSize, y + 2 * cellSize, 3 * cellSize, 3 * cellSize)
     } else if (style === 'rounded') {
       // Outer ring: rounded rect stroke
+      // Note: ctx.roundRect requires Chrome 99+, Firefox 112+, or a polyfill
       ctx.strokeStyle = color
       ctx.lineWidth = cellSize
       ctx.beginPath()
