@@ -29,6 +29,8 @@ function createMockCtx() {
     stroke: record('stroke'),
     roundRect: record('roundRect'),
     drawImage: record('drawImage'),
+    save: record('save'),
+    restore: record('restore'),
     getCalls: () => calls,
     getCallsFor: (method: string) => calls.filter((c) => c.method === method),
   }

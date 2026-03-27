@@ -12,6 +12,8 @@ export function renderCanvas(
   ctx: CanvasRenderingContext2D,
   logoImage?: HTMLImageElement | ImageBitmap | null
 ): void {
+  ctx.save()
+
   // Background
   if (scene.backgroundColor !== 'transparent') {
     ctx.fillStyle = scene.backgroundColor
@@ -78,4 +80,6 @@ export function renderCanvas(
       ctx.drawImage(logoImage, scene.logo.x, scene.logo.y)
     }
   }
+
+  ctx.restore()
 }
