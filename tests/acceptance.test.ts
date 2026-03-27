@@ -49,9 +49,9 @@ describe('acceptance test', () => {
     // Subtract 6 (3 finders × 2 circles each)
     const ourDotCount = ourCircleCount - 6
 
-    // Allow ±30% difference (reference may have been generated with different settings)
-    expect(ourDotCount).toBeGreaterThan(refCircleCount * 0.7)
-    expect(ourDotCount).toBeLessThan(refCircleCount * 1.3)
+    // Allow ±5% difference (reference may have been generated with different settings)
+    expect(ourDotCount).toBeGreaterThan(refCircleCount * 0.85)
+    expect(ourDotCount).toBeLessThan(refCircleCount * 1.15)
 
     console.log(`Reference path count: ${refCircleCount}, Our circle count (excluding finders): ${ourDotCount}`)
   })

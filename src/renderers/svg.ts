@@ -11,7 +11,11 @@ function n(x: number): number {
  * Escape string values for safe use in XML attributes.
  */
 function esc(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
 }
 
 /**
@@ -24,21 +28,21 @@ function renderFinder(finder: FinderShape): string {
 
   if (style === 'squares') {
     return (
-      `<rect x="${n(x)}" y="${n(y)}" width="${n(7 * cellSize)}" height="${n(7 * cellSize)}" fill="none" stroke="${esc(color)}" stroke-width="${n(cellSize)}"/>` +
+      `<rect x="${n(x + cellSize / 2)}" y="${n(y + cellSize / 2)}" width="${n(6 * cellSize)}" height="${n(6 * cellSize)}" fill="none" stroke="${esc(color)}" stroke-width="${n(cellSize)}"/>` +
       `<rect x="${n(x + 2 * cellSize)}" y="${n(y + 2 * cellSize)}" width="${n(3 * cellSize)}" height="${n(3 * cellSize)}" fill="${esc(color)}"/>`
     )
   }
 
   if (style === 'rounded') {
     return (
-      `<rect x="${n(x)}" y="${n(y)}" width="${n(7 * cellSize)}" height="${n(7 * cellSize)}" rx="${n(1.5 * cellSize)}" fill="none" stroke="${esc(color)}" stroke-width="${n(cellSize)}"/>` +
+      `<rect x="${n(x + cellSize / 2)}" y="${n(y + cellSize / 2)}" width="${n(6 * cellSize)}" height="${n(6 * cellSize)}" rx="${n(1.5 * cellSize)}" fill="none" stroke="${esc(color)}" stroke-width="${n(cellSize)}"/>` +
       `<rect x="${n(x + 2 * cellSize)}" y="${n(y + 2 * cellSize)}" width="${n(3 * cellSize)}" height="${n(3 * cellSize)}" rx="${n(0.75 * cellSize)}" fill="${esc(color)}"/>`
     )
   }
 
   // style === 'circles'
   return (
-    `<circle cx="${cx}" cy="${cy}" r="${n(3.5 * cellSize)}" fill="none" stroke="${esc(color)}" stroke-width="${n(cellSize)}"/>` +
+    `<circle cx="${cx}" cy="${cy}" r="${n(3 * cellSize)}" fill="none" stroke="${esc(color)}" stroke-width="${n(cellSize)}"/>` +
     `<circle cx="${cx}" cy="${cy}" r="${n(1.5 * cellSize)}" fill="${esc(color)}"/>`
   )
 }
