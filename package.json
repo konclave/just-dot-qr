@@ -31,9 +31,13 @@
   "devDependencies": {
     "@types/jsdom": "^28.0.1",
     "@types/qrcode": "^1.5.5",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@vitest/coverage-v8": "^3.0.0",
     "canvas": "^3.2.2",
     "jsdom": "^29.0.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",
     "vitest": "^3.0.0"
