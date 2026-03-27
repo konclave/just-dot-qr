@@ -8,6 +8,13 @@ function n(x: number): number {
 }
 
 /**
+ * Escape string values for safe use in XML attributes.
+ */
+function esc(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+}
+
+/**
  * Render a finder pattern shape as SVG markup.
  */
 function renderFinder(finder: FinderShape): string {
@@ -17,22 +24,22 @@ function renderFinder(finder: FinderShape): string {
 
   if (style === 'squares') {
     return (
-      `<rect x="${n(x)}" y="${n(y)}" width="${n(7 * cellSize)}" height="${n(7 * cellSize)}" fill="none" stroke="${color}" stroke-width="${n(cellSize)}"/>` +
-      `<rect x="${n(x + 2 * cellSize)}" y="${n(y + 2 * cellSize)}" width="${n(3 * cellSize)}" height="${n(3 * cellSize)}" fill="${color}"/>`
+      `<rect x="${n(x)}" y="${n(y)}" width="${n(7 * cellSize)}" height="${n(7 * cellSize)}" fill="none" stroke="${esc(color)}" stroke-width="${n(cellSize)}"/>` +
+      `<rect x="${n(x + 2 * cellSize)}" y="${n(y + 2 * cellSize)}" width="${n(3 * cellSize)}" height="${n(3 * cellSize)}" fill="${esc(color)}"/>`
     )
   }
 
   if (style === 'rounded') {
     return (
-      `<rect x="${n(x)}" y="${n(y)}" width="${n(7 * cellSize)}" height="${n(7 * cellSize)}" rx="${n(1.5 * cellSize)}" fill="none" stroke="${color}" stroke-width="${n(cellSize)}"/>` +
-      `<rect x="${n(x + 2 * cellSize)}" y="${n(y + 2 * cellSize)}" width="${n(3 * cellSize)}" height="${n(3 * cellSize)}" rx="${n(0.75 * cellSize)}" fill="${color}"/>`
+      `<rect x="${n(x)}" y="${n(y)}" width="${n(7 * cellSize)}" height="${n(7 * cellSize)}" rx="${n(1.5 * cellSize)}" fill="none" stroke="${esc(color)}" stroke-width="${n(cellSize)}"/>` +
+      `<rect x="${n(x + 2 * cellSize)}" y="${n(y + 2 * cellSize)}" width="${n(3 * cellSize)}" height="${n(3 * cellSize)}" rx="${n(0.75 * cellSize)}" fill="${esc(color)}"/>`
     )
   }
 
   // style === 'circles'
   return (
-    `<circle cx="${cx}" cy="${cy}" r="${n(3.5 * cellSize)}" fill="none" stroke="${color}" stroke-width="${n(cellSize)}"/>` +
-    `<circle cx="${cx}" cy="${cy}" r="${n(1.5 * cellSize)}" fill="${color}"/>`
+    `<circle cx="${cx}" cy="${cy}" r="${n(3.5 * cellSize)}" fill="none" stroke="${esc(color)}" stroke-width="${n(cellSize)}"/>` +
+    `<circle cx="${cx}" cy="${cy}" r="${n(1.5 * cellSize)}" fill="${esc(color)}"/>`
   )
 }
 
@@ -47,12 +54,12 @@ export function renderSVG(scene: DotQRScene): string {
 
   // Background
   if (backgroundColor !== 'transparent') {
-    parts.push(`<rect width="100%" height="100%" fill="${backgroundColor}"/>`)
+    parts.push(`<rect width="100%" height="100%" fill="${esc(backgroundColor)}"/>`)
   }
 
   // Data dots
   for (const dot of dots) {
-    parts.push(`<circle cx="${n(dot.cx)}" cy="${n(dot.cy)}" r="${n(dot.r)}" fill="${dot.color}"/>`)
+    parts.push(`<circle cx="${n(dot.cx)}" cy="${n(dot.cy)}" r="${n(dot.r)}" fill="${esc(dot.color)}"/>`)
   }
 
   // Finder patterns
@@ -62,10 +69,10 @@ export function renderSVG(scene: DotQRScene): string {
 
   // Logo
   if (logo) {
-    if (logo.width === 0 || logo.height === 0) {
-      parts.push(`<image href="${logo.src}" x="${n(logo.x)}" y="${n(logo.y)}"/>`)
+    if (logo.width === 0 && logo.height === 0) {
+      parts.push(`<image href="${esc(logo.src)}" x="${n(logo.x)}" y="${n(logo.y)}"/>`)
     } else {
-      parts.push(`<image href="${logo.src}" x="${n(logo.x)}" y="${n(logo.y)}" width="${n(logo.width)}" height="${n(logo.height)}"/>`)
+      parts.push(`<image href="${esc(logo.src)}" x="${n(logo.x)}" y="${n(logo.y)}" width="${n(logo.width)}" height="${n(logo.height)}"/>`)
     }
   }
 
