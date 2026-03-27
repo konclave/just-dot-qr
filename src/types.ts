@@ -29,10 +29,10 @@ export interface DotQROptions {
     /** URL or data URI of the logo image */
     src: string;
 
-    /** Width in pixels (default: natural image width) */
+    /** Width of the logo in pixels. When omitted, no dot cutout is applied around the logo (the logo overlays the QR code). */
     width?: number;
 
-    /** Height in pixels (default: same as width) */
+    /** Height of the logo in pixels. When omitted, defaults to width. When both are omitted, no dot cutout is applied. */
     height?: number;
   };
 

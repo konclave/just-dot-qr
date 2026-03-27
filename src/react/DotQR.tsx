@@ -1,6 +1,6 @@
 import React from 'react'
 import { buildScene } from '../core/scene'
-import { DotQROptions, FinderShape } from '../types'
+import type { DotQROptions, FinderShape } from '../types'
 
 export type DotQRProps = DotQROptions & Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'viewBox'>
 
@@ -64,10 +64,10 @@ function renderFinder(finder: FinderShape): React.ReactElement {
     return (
       <g>
         <rect
-          x={round2(x)}
-          y={round2(y)}
-          width={round2(7 * cellSize)}
-          height={round2(7 * cellSize)}
+          x={round2(x + cellSize / 2)}
+          y={round2(y + cellSize / 2)}
+          width={round2(6 * cellSize)}
+          height={round2(6 * cellSize)}
           fill="none"
           stroke={color}
           strokeWidth={round2(cellSize)}
@@ -87,10 +87,10 @@ function renderFinder(finder: FinderShape): React.ReactElement {
     return (
       <g>
         <rect
-          x={round2(x)}
-          y={round2(y)}
-          width={round2(7 * cellSize)}
-          height={round2(7 * cellSize)}
+          x={round2(x + cellSize / 2)}
+          y={round2(y + cellSize / 2)}
+          width={round2(6 * cellSize)}
+          height={round2(6 * cellSize)}
           rx={round2(1.5 * cellSize)}
           fill="none"
           stroke={color}
@@ -114,7 +114,7 @@ function renderFinder(finder: FinderShape): React.ReactElement {
       <circle
         cx={cx}
         cy={cy}
-        r={round2(3.5 * cellSize)}
+        r={round2(3 * cellSize)}
         fill="none"
         stroke={color}
         strokeWidth={round2(cellSize)}
