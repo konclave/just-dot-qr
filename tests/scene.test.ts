@@ -15,8 +15,11 @@ describe('buildScene', () => {
 
   it('excludes dots whose center falls in the top-left 8×8 cell finder region', () => {
     const scene = buildScene({ text: 'A' })
-    const matrixSize = 21 // version 1 QR code
-    const cellSize = 400 / matrixSize
+    // Derive matrixSize from finder positions: top-right finder x = (matrixSize-7)*cellSize
+    const topRightFinder = scene.finders[1]
+    const cellSize = scene.size / 21 // For version 1 QR code, matrixSize is 21
+    const matrixSize = Math.round(topRightFinder.x / cellSize) + 7
+    expect(matrixSize).toBe(21) // Assert version 1 QR code is generated
 
     // Any dot center in col 0–7, row 0–7 should be excluded
     const dotsInTopLeft = scene.dots.filter((dot) => {
@@ -26,6 +29,42 @@ describe('buildScene', () => {
     })
 
     expect(dotsInTopLeft).toHaveLength(0)
+  })
+
+  it('excludes dots whose center falls in the top-right 8×8 cell finder region', () => {
+    const scene = buildScene({ text: 'A' })
+    // Derive matrixSize from finder positions
+    const topRightFinder = scene.finders[1]
+    const cellSize = scene.size / 21
+    const matrixSize = Math.round(topRightFinder.x / cellSize) + 7
+    expect(matrixSize).toBe(21) // Assert version 1 QR code is generated
+
+    // Any dot center in col (matrixSize-8) to (matrixSize-1), row 0–7 should be excluded
+    const dotsInTopRight = scene.dots.filter((dot) => {
+      const col = dot.cx / cellSize - 0.5
+      const row = dot.cy / cellSize - 0.5
+      return col >= matrixSize - 8 && col <= matrixSize - 1 && row >= 0 && row <= 7
+    })
+
+    expect(dotsInTopRight).toHaveLength(0)
+  })
+
+  it('excludes dots whose center falls in the bottom-left 8×8 cell finder region', () => {
+    const scene = buildScene({ text: 'A' })
+    // Derive matrixSize from finder positions
+    const topRightFinder = scene.finders[1]
+    const cellSize = scene.size / 21
+    const matrixSize = Math.round(topRightFinder.x / cellSize) + 7
+    expect(matrixSize).toBe(21) // Assert version 1 QR code is generated
+
+    // Any dot center in col 0–7, row (matrixSize-8) to (matrixSize-1) should be excluded
+    const dotsInBottomLeft = scene.dots.filter((dot) => {
+      const col = dot.cx / cellSize - 0.5
+      const row = dot.cy / cellSize - 0.5
+      return col >= 0 && col <= 7 && row >= matrixSize - 8 && row <= matrixSize - 1
+    })
+
+    expect(dotsInBottomLeft).toHaveLength(0)
   })
 
   it('excludes dots near center when logo with explicit dimensions is provided', () => {
