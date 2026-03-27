@@ -9,4 +9,7 @@ export default defineConfig({
   dts: true,
   clean: true,
   splitting: false,
+  outExtension({ format }) {
+    return { js: format === 'esm' ? '.mjs' : '.cjs' }
+  },
 })
