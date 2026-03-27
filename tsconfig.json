@@ -5,8 +5,7 @@
     "moduleResolution": "bundler",
     "strict": true,
     "jsx": "react-jsx",
-    "declaration": true,
-    "outDir": "dist"
+    "declaration": true
   },
   "include": ["src"]
 }
