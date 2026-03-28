@@ -161,4 +161,31 @@ describe('buildScene', () => {
     expect(bottomLeft.x).toBe(0)
     expect(bottomLeft.y).toBeCloseTo((matrixSize - 7) * cellSize)
   })
+
+  describe('logo padding', () => {
+    it('padding expands the dot exclusion zone', () => {
+      const withoutPadding = buildScene({
+        text: 'A',
+        logo: { src: 'x', width: 80, height: 80, padding: 0 },
+      })
+      const withPadding = buildScene({
+        text: 'A',
+        logo: { src: 'x', width: 80, height: 80, padding: 20 },
+      })
+      expect(withPadding.dots.length).toBeLessThan(withoutPadding.dots.length)
+    })
+
+    it('padding 0 is equivalent to omitting padding', () => {
+      const explicit = buildScene({ text: 'A', logo: { src: 'x', width: 80, height: 80, padding: 0 } })
+      const implicit = buildScene({ text: 'A', logo: { src: 'x', width: 80, height: 80 } })
+      expect(explicit.dots.length).toBe(implicit.dots.length)
+    })
+
+    it('padding has no effect when logo dimensions are omitted', () => {
+      const withPadding = buildScene({ text: 'A', logo: { src: 'x', padding: 20 } })
+      const withoutLogo = buildScene({ text: 'A' })
+      // No dimensions → sentinel 0 → no exclusion → same dot count as no logo
+      expect(withPadding.dots.length).toBe(withoutLogo.dots.length)
+    })
+  })
 })

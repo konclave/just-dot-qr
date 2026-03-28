@@ -45,6 +45,7 @@ export function buildScene(options: DotQROptions): DotQRScene {
   const dotColor = options.dotColor ?? '#ffffff'
   const dotScale = options.dotScale ?? 0.6
   const r = (cellSize / 2) * dotScale
+  const logoPadding = options.logo?.padding ?? 0
 
   for (let row = 0; row < matrixSize; row++) {
     for (let col = 0; col < matrixSize; col++) {
@@ -70,10 +71,10 @@ export function buildScene(options: DotQROptions): DotQRScene {
         logoPlacement.height > 0
       ) {
         if (
-          cx >= logoPlacement.x &&
-          cx <= logoPlacement.x + logoPlacement.width &&
-          cy >= logoPlacement.y &&
-          cy <= logoPlacement.y + logoPlacement.height
+          cx >= logoPlacement.x - logoPadding &&
+          cx <= logoPlacement.x + logoPlacement.width + logoPadding &&
+          cy >= logoPlacement.y - logoPadding &&
+          cy <= logoPlacement.y + logoPlacement.height + logoPadding
         ) {
           continue
         }
