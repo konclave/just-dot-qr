@@ -5,7 +5,7 @@
 /**
  * User-facing configuration options for QR code generation
  */
-export interface DotQROptions {
+export interface JustDotQROptions {
   /** QR code content/text to encode */
   text: string;
 
@@ -104,7 +104,7 @@ export interface LogoPlacement {
  * Intermediate "render model" describing what needs to be drawn
  * Pure data structure passed to renderers (SVG/Canvas/PNG)
  */
-export interface DotQRScene {
+export interface JustDotQRScene {
   /** Array of circular dots to render */
   dots: Circle[];
 

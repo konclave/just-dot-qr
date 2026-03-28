@@ -4,3 +4,5 @@ coverage
 *.js.map
 .DS_Store
 acceptance-output.svg
+.remember
+.superpowers

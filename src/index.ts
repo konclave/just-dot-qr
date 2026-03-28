@@ -2,7 +2,7 @@ import { buildScene } from './core/scene'
 import { renderSVG } from './renderers/svg'
 import { renderCanvas } from './renderers/canvas'
 import { renderPNG } from './renderers/png'
-import type { DotQROptions, DotQRScene, Circle, FinderShape, LogoPlacement } from './types'
+import type { JustDotQROptions, JustDotQRScene, Circle, FinderShape, LogoPlacement } from './types'
 
 /**
  * Generate a QR code as an SVG string.
@@ -10,7 +10,7 @@ import type { DotQROptions, DotQRScene, Circle, FinderShape, LogoPlacement } fro
  * @param options - Configuration options for the QR code
  * @returns SVG markup as a string
  */
-export function toSVG(options: DotQROptions): string {
+export function toSVG(options: JustDotQROptions): string {
   const scene = buildScene(options)
   return renderSVG(scene)
 }
@@ -23,7 +23,7 @@ export function toSVG(options: DotQROptions): string {
  * @param logoImage - Optional pre-loaded image element to draw as the logo
  */
 export function toCanvas(
-  options: DotQROptions,
+  options: JustDotQROptions,
   ctx: CanvasRenderingContext2D,
   logoImage?: HTMLImageElement | ImageBitmap | null
 ): void {
@@ -39,7 +39,7 @@ export function toCanvas(
  * @returns A Promise that resolves to a PNG Blob
  */
 export async function toPNG(
-  options: DotQROptions,
+  options: JustDotQROptions,
   logoImage?: HTMLImageElement | ImageBitmap | null
 ): Promise<Blob> {
   const scene = buildScene(options)
@@ -51,9 +51,9 @@ export async function toPNG(
  * Most users should use toSVG, toCanvas, or toPNG instead.
  *
  * @param options - Configuration options for the QR code
- * @returns A DotQRScene describing all elements to render
+ * @returns A JustDotQRScene describing all elements to render
  */
 export { buildScene }
 
 // Type exports for user-facing API
-export type { DotQROptions, DotQRScene, Circle, FinderShape, LogoPlacement }
+export type { JustDotQROptions, JustDotQRScene, Circle, FinderShape, LogoPlacement }

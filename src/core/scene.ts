@@ -1,15 +1,15 @@
-import type { DotQROptions, DotQRScene, Circle, LogoPlacement } from '../types'
+import type { JustDotQROptions, JustDotQRScene, Circle, LogoPlacement } from '../types'
 import { generateMatrix } from './matrix'
 import { getFinderShapes } from './finder'
 
 /**
- * Builds a DotQRScene from user-facing options.
+ * Builds a JustDotQRScene from user-facing options.
  * This is pure computation — no DOM or browser APIs are used.
  *
  * @param options - Configuration options for the QR code
- * @returns A DotQRScene describing all elements to render
+ * @returns A JustDotQRScene describing all elements to render
  */
-export function buildScene(options: DotQROptions): DotQRScene {
+export function buildScene(options: JustDotQROptions): JustDotQRScene {
   // Step 1: Generate the QR matrix
   const matrix = generateMatrix(options.text, options.errorCorrectionLevel ?? 'H')
   const matrixSize = matrix.length

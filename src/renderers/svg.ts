@@ -1,4 +1,4 @@
-import type { DotQRScene, FinderShape } from '../types'
+import type { JustDotQRScene, FinderShape } from '../types'
 
 /**
  * Round a number to 2 decimal places for SVG output.
@@ -48,9 +48,9 @@ function renderFinder(finder: FinderShape): string {
 }
 
 /**
- * Converts a DotQRScene to an SVG string.
+ * Converts a JustDotQRScene to an SVG string.
  */
-export function renderSVG(scene: DotQRScene): string {
+export function renderSVG(scene: JustDotQRScene): string {
   const { dots, finders, size, backgroundColor, logo } = scene
 
   const parts: string[] = []
