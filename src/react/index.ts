@@ -1,2 +1,2 @@
-export { DotQR } from './DotQR'
-export type { DotQRProps } from './DotQR'
+export { JustDotQR } from './JustDotQR'
+export type { JustDotQRProps } from './JustDotQR'

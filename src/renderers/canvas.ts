@@ -1,14 +1,14 @@
-import type { DotQRScene } from '../types'
+import type { JustDotQRScene } from '../types'
 
 /**
- * Renders a DotQRScene to an existing CanvasRenderingContext2D.
+ * Renders a JustDotQRScene to an existing CanvasRenderingContext2D.
  *
  * @param scene - The scene describing what to draw
  * @param ctx - The 2D rendering context to draw onto
  * @param logoImage - Optional pre-loaded image element to draw as the logo
  */
 export function renderCanvas(
-  scene: DotQRScene,
+  scene: JustDotQRScene,
   ctx: CanvasRenderingContext2D,
   logoImage?: HTMLImageElement | ImageBitmap | null
 ): void {

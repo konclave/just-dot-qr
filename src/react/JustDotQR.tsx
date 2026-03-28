@@ -1,17 +1,33 @@
-import React from 'react'
-import { buildScene } from '../core/scene'
-import type { DotQROptions, FinderShape } from '../types'
+import React from "react";
+import { buildScene } from "../core/scene";
+import type { JustDotQROptions, FinderShape } from "../types";
 
-export type DotQRProps = DotQROptions & Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'viewBox'>
+export type JustDotQRProps = JustDotQROptions &
+  Omit<React.SVGProps<SVGSVGElement>, "width" | "height" | "viewBox">;
 
-export function DotQR(props: DotQRProps): React.ReactElement {
+export function JustDotQR(props: JustDotQRProps): React.ReactElement {
   const {
-    text, size = 400, dotColor = '#ffffff', backgroundColor = 'transparent',
-    dotScale = 0.6, finderStyle = 'circles', logo, errorCorrectionLevel = 'H',
+    text,
+    size = 400,
+    dotColor = "#ffffff",
+    backgroundColor = "transparent",
+    dotScale = 0.6,
+    finderStyle = "rounded",
+    logo,
+    errorCorrectionLevel = "H",
     ...svgProps
-  } = props
+  } = props;
 
-  const scene = buildScene({ text, size, dotColor, backgroundColor, dotScale, finderStyle, logo, errorCorrectionLevel })
+  const scene = buildScene({
+    text,
+    size,
+    dotColor,
+    backgroundColor,
+    dotScale,
+    finderStyle,
+    logo,
+    errorCorrectionLevel,
+  });
 
   return (
     <svg
@@ -22,7 +38,7 @@ export function DotQR(props: DotQRProps): React.ReactElement {
       {...svgProps}
     >
       {/* Background */}
-      {scene.backgroundColor !== 'transparent' && (
+      {scene.backgroundColor !== "transparent" && (
         <rect width="100%" height="100%" fill={scene.backgroundColor} />
       )}
 
@@ -48,19 +64,19 @@ export function DotQR(props: DotQRProps): React.ReactElement {
         />
       )}
     </svg>
-  )
+  );
 }
 
 function round2(x: number): number {
-  return Math.round(x * 100) / 100
+  return Math.round(x * 100) / 100;
 }
 
 function renderFinder(finder: FinderShape): React.ReactElement {
-  const { x, y, cellSize, style, color } = finder
-  const cx = round2(x + 3.5 * cellSize)
-  const cy = round2(y + 3.5 * cellSize)
+  const { x, y, cellSize, style, color } = finder;
+  const cx = round2(x + 3.5 * cellSize);
+  const cy = round2(y + 3.5 * cellSize);
 
-  if (style === 'squares') {
+  if (style === "squares") {
     return (
       <g>
         <rect
@@ -80,10 +96,10 @@ function renderFinder(finder: FinderShape): React.ReactElement {
           fill={color}
         />
       </g>
-    )
+    );
   }
 
-  if (style === 'rounded') {
+  if (style === "rounded") {
     return (
       <g>
         <rect
@@ -105,7 +121,7 @@ function renderFinder(finder: FinderShape): React.ReactElement {
           fill={color}
         />
       </g>
-    )
+    );
   }
 
   // style === 'circles'
@@ -119,12 +135,7 @@ function renderFinder(finder: FinderShape): React.ReactElement {
         stroke={color}
         strokeWidth={round2(cellSize)}
       />
-      <circle
-        cx={cx}
-        cy={cy}
-        r={round2(1.5 * cellSize)}
-        fill={color}
-      />
+      <circle cx={cx} cy={cy} r={round2(1.5 * cellSize)} fill={color} />
     </g>
-  )
+  );
 }

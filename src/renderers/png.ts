@@ -1,8 +1,8 @@
-import type { DotQRScene } from '../types'
+import type { JustDotQRScene } from '../types'
 import { renderCanvas } from './canvas'
 
 /**
- * Renders a DotQRScene to a PNG Blob using an offscreen canvas.
+ * Renders a JustDotQRScene to a PNG Blob using an offscreen canvas.
  *
  * Targets browser environments (uses `document.createElement`).
  *
@@ -11,7 +11,7 @@ import { renderCanvas } from './canvas'
  * @returns A Promise that resolves to a PNG Blob
  */
 export async function renderPNG(
-  scene: DotQRScene,
+  scene: JustDotQRScene,
   logoImage?: HTMLImageElement | ImageBitmap | null
 ): Promise<Blob> {
   const canvas = document.createElement('canvas')
