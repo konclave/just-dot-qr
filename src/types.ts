@@ -34,6 +34,9 @@ export interface DotQROptions {
 
     /** Height of the logo in pixels. When omitted, defaults to width. When both are omitted, no dot cutout is applied. */
     height?: number;
+
+    /** Extra space in pixels to clear of dots around the logo on each side (default: 0) */
+    padding?: number;
   };
 
   /** Error correction level (default: 'H', required when logo is present) */
