@@ -1,5 +1,5 @@
 {
-  "name": "dot-qr",
+  "name": "just-dot-qr",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.cjs",
