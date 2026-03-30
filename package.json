@@ -3,7 +3,16 @@
   "version": "0.1.0",
   "description": "QR code generator with circle dots. SVG, Canvas, and PNG output with optional centered logo. React component included.",
   "license": "MIT",
-  "keywords": ["qr-code", "qr", "svg", "canvas", "png", "react", "circles", "typescript"],
+  "keywords": [
+    "qr-code",
+    "qr",
+    "svg",
+    "canvas",
+    "png",
+    "react",
+    "circles",
+    "typescript"
+  ],
   "homepage": "https://github.com/konclave/just-dot-qr#readme",
   "repository": {
     "type": "git",
@@ -37,7 +46,9 @@
     "typecheck": "tsc --noEmit"
   },
   "release": {
-    "branches": ["main"],
+    "branches": [
+      "main"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
@@ -52,7 +63,10 @@
       [
         "@semantic-release/git",
         {
-          "assets": ["CHANGELOG.md", "package.json"],
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ],
           "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
         }
       ]
@@ -93,5 +107,11 @@
     "react-dom": {
       "optional": true
     }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "canvas",
+      "esbuild"
+    ]
   }
 }
