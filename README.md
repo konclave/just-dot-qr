@@ -107,76 +107,6 @@ const scene = buildScene({ text: 'https://example.com' })
 // scene.logo — optional LogoPlacement
 ```
 
-### `<JustDotQR>` React component
-
-Import from `just-dot-qr/react`. Accepts all `JustDotQROptions` props plus additional props described below.
-
-```tsx
-import { JustDotQR } from 'just-dot-qr/react'
-```
-
-#### SVG mode (default)
-
-Renders an inline `<svg>`. Any extra prop is forwarded to the `<svg>` element (`className`, `style`, `onClick`, etc.). Compatible with SSR and React Server Components — no hooks are used.
-
-```tsx
-<JustDotQR
-  text="https://example.com"
-  size={300}
-  dotColor="#1a1a1a"
-  finderStyle="rounded"
-  className="my-qr"
-/>
-```
-
-#### Canvas mode
-
-Pass `renderAs="canvas"` to render a `<canvas>` element instead.
-
-```tsx
-<JustDotQR
-  text="https://example.com"
-  renderAs="canvas"
-  size={300}
-  dotColor="#1a1a1a"
-/>
-```
-
-#### Auto-size from container
-
-Omit `size` in canvas mode and the component measures its parent container on mount, then paints at that width.
-
-```tsx
-<div style={{ width: '100%' }}>
-  <JustDotQR text="https://example.com" renderAs="canvas" />
-</div>
-```
-
-Add `watchResize` to repaint whenever the container width changes (backed by `ResizeObserver`):
-
-```tsx
-<div style={{ width: '100%' }}>
-  <JustDotQR text="https://example.com" renderAs="canvas" watchResize />
-</div>
-```
-
-#### With a logo
-
-```tsx
-<JustDotQR
-  text="https://example.com"
-  logo={{ src: '/logo.png', width: 60, height: 60, padding: 4 }}
-/>
-```
-
-Logo images can also be imported as modules (Vite / webpack):
-
-```tsx
-import logoSrc from './logo.png'
-
-<JustDotQR text="https://example.com" logo={{ src: logoSrc, width: 60 }} />
-```
-
 ## Options
 
 All options are part of `JustDotQROptions`:
@@ -188,21 +118,106 @@ All options are part of `JustDotQROptions`:
 | `dotColor` | `string` | `'#ffffff'` | Color of the circular dots |
 | `backgroundColor` | `string` | `'transparent'` | Background color. Accepts any CSS color or `'transparent'` |
 | `dotScale` | `number` | `0.6` | Dot size relative to its grid cell (0–1) |
-| `finderStyle` | `'squares' \| 'rounded' \| 'circles'` | `'circles'`* | Visual style of the three finder patterns |
+| `finderStyle` | `'squares' \| 'rounded' \| 'circles'` | `'circles'` | Visual style of the three finder patterns |
 | `errorCorrectionLevel` | `'L' \| 'M' \| 'Q' \| 'H'` | `'H'` | QR error correction level. Use `'H'` when a logo is present |
 | `logo.src` | `string` | — | URL or data URI of the logo image |
 | `logo.width` | `number` | — | Width of the logo in pixels. When omitted, no dot cutout is applied |
 | `logo.height` | `number` | `logo.width` | Height of the logo in pixels |
 | `logo.padding` | `number` | `0` | Extra pixels of dot-free space around the logo on each side |
 
-> *The React component defaults `finderStyle` to `'rounded'`.
+## React component
 
-### React-only props
+```bash
+npm install just-dot-qr react react-dom
+```
+
+```tsx
+import { JustDotQR } from 'just-dot-qr/react'
+```
+
+### SVG mode (default)
+
+Renders an inline `<svg>`. Any extra prop is forwarded to the `<svg>` element (`className`, `style`, `onClick`, etc.).
+
+```tsx
+<JustDotQR
+  text="https://example.com"
+  size={300}
+  dotColor="#1a1a1a"
+  finderStyle="rounded"
+  className="my-qr"
+/>
+```
+
+> **SSR / React Server Components:** SVG mode uses no hooks and is fully compatible with Next.js App Router server components and `renderToString`.
+
+### Canvas mode
+
+Pass `renderAs="canvas"` to render a `<canvas>` element instead of SVG.
+
+```tsx
+<JustDotQR
+  text="https://example.com"
+  renderAs="canvas"
+  size={300}
+  dotColor="#1a1a1a"
+/>
+```
+
+### Auto-size from container
+
+Omit `size` in canvas mode and the component measures its parent container on mount, then paints at that width. The QR is always square, sized to the container's width.
+
+```tsx
+<div style={{ width: '100%', maxWidth: 400 }}>
+  <JustDotQR text="https://example.com" renderAs="canvas" />
+</div>
+```
+
+Add `watchResize` to repaint whenever the container width changes (uses `ResizeObserver`):
+
+```tsx
+<div style={{ width: '100%' }}>
+  <JustDotQR text="https://example.com" renderAs="canvas" watchResize />
+</div>
+```
+
+`watchResize` has no effect when `size` is set explicitly.
+
+### With a logo
+
+```tsx
+<JustDotQR
+  text="https://example.com"
+  logo={{ src: '/logo.png', width: 186, height: 78, padding: 4 }}
+/>
+```
+
+Logo images can be imported as modules (Vite / webpack / Next.js):
+
+```tsx
+import logoSrc from './logo.png'
+
+<JustDotQR
+  text="https://example.com"
+  logo={{ src: logoSrc, width: 186, height: 78, padding: 4 }}
+/>
+```
+
+In canvas mode, the logo is loaded from the `src` URL automatically — no need to pre-load the image yourself.
+
+### Props reference
+
+Accepts all `JustDotQROptions` (see table above) plus:
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `renderAs` | `'svg' \| 'canvas'` | `'svg'` | Output element. SVG mode forwards extra props to `<svg>`; canvas mode renders `<canvas>` |
-| `watchResize` | `boolean` | `false` | Canvas mode only. Attach a `ResizeObserver` on the parent and repaint on width changes. Has no effect when `size` is set explicitly |
+| `renderAs` | `'svg' \| 'canvas'` | `'svg'` | Output element type |
+| `watchResize` | `boolean` | `false` | Canvas only. Attach a `ResizeObserver` on the parent and repaint on width changes |
+
+In SVG mode, all remaining props are forwarded to the underlying `<svg>` element (`className`, `id`, `style`, `aria-*`, event handlers, etc.).
+
+> **Note:** The React component defaults `finderStyle` to `'rounded'` while the core API defaults to `'circles'`.
 
 ## License
 
