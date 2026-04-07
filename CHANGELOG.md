@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/konclave/just-dot-qr/compare/v1.0.0...v1.1.0) (2026-04-07)
+
+
+### Features
+
+* add canvas react component renderer ([7246220](https://github.com/konclave/just-dot-qr/commit/7246220b70d1bd10c6c874315ab22734458dbaa7))
+* make canvas size computed ([a0eb119](https://github.com/konclave/just-dot-qr/commit/a0eb11940bf4f84c745df38a718184b235d40e9e))
+* react component canvas renderer ([7388153](https://github.com/konclave/just-dot-qr/commit/738815300b997bb6bbfe65ff2e2764cbec8a3e81))
+
 # 1.0.0 (2026-03-30)
 
 
