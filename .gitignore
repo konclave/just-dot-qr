@@ -7,3 +7,5 @@ coverage
 acceptance-output.svg
 .remember
 .superpowers
+.idea
+.playwright*
