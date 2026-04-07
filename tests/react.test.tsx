@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import React from "react";
 import { JustDotQR } from "../src/react/JustDotQR";
 import * as canvasRenderer from "../src/renderers/canvas";
@@ -146,16 +146,16 @@ describe("JustDotQR — canvas mode", () => {
 
   it("calls renderCanvas after mount", () => {
     const spy = vi.spyOn(canvasRenderer, "renderCanvas");
-    render(<JustDotQR text="hello" renderAs="canvas" />);
+    render(<JustDotQR text="hello" renderAs="canvas" size={400} />);
     expect(spy).toHaveBeenCalledOnce();
   });
 
   it("calls renderCanvas again when a prop changes", () => {
     const spy = vi.spyOn(canvasRenderer, "renderCanvas");
     const { rerender } = render(
-      <JustDotQR text="hello" renderAs="canvas" dotColor="#ffffff" />,
+      <JustDotQR text="hello" renderAs="canvas" size={400} dotColor="#ffffff" />,
     );
-    rerender(<JustDotQR text="hello" renderAs="canvas" dotColor="#000000" />);
+    rerender(<JustDotQR text="hello" renderAs="canvas" size={400} dotColor="#000000" />);
     expect(spy).toHaveBeenCalledTimes(2);
   });
 
@@ -188,6 +188,7 @@ describe("JustDotQR — canvas mode", () => {
       <JustDotQR
         text="hello"
         renderAs="canvas"
+        size={400}
         logo={{ src: "https://example.com/logo.png", width: 60 }}
       />,
     );
@@ -199,5 +200,97 @@ describe("JustDotQR — canvas mode", () => {
     });
     const [, , logoImage] = spy.mock.calls[1];
     expect(logoImage).not.toBeNull();
+  });
+});
+
+// ─── Canvas auto-size ─────────────────────────────────────────────────────────
+
+describe("JustDotQR — canvas auto-size", () => {
+  it("measures container once on mount when size is omitted", () => {
+    const observeSpy = vi.fn();
+    vi.stubGlobal(
+      "ResizeObserver",
+      class {
+        observe = observeSpy;
+        disconnect() {}
+      },
+    );
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue({
+      width: 320,
+      height: 320,
+      top: 0, left: 0, right: 320, bottom: 320, x: 0, y: 0,
+      toJSON: () => {},
+    } as DOMRect);
+
+    const { container } = render(
+      <div>
+        <JustDotQR text="hello" renderAs="canvas" />
+      </div>,
+    );
+
+    // no watchResize → observer should NOT be attached
+    expect(observeSpy).not.toHaveBeenCalled();
+    // canvas should have been sized to the measured container width
+    const canvas = container.querySelector("canvas")!;
+    expect(canvas).toHaveAttribute("width", "320");
+    expect(canvas).toHaveAttribute("height", "320");
+  });
+
+  it("repaints when container resizes with watchResize", () => {
+    let observerCallback!: ResizeObserverCallback;
+    vi.stubGlobal(
+      "ResizeObserver",
+      class {
+        constructor(cb: ResizeObserverCallback) {
+          observerCallback = cb;
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue({
+      width: 200,
+      height: 200,
+      top: 0, left: 0, right: 200, bottom: 200, x: 0, y: 0,
+      toJSON: () => {},
+    } as DOMRect);
+
+    const { container } = render(
+      <div>
+        <JustDotQR text="hello" renderAs="canvas" watchResize />
+      </div>,
+    );
+
+    // Simulate a container resize to 480px
+    act(() => {
+      observerCallback(
+        [{ contentRect: { width: 480 } } as ResizeObserverEntry],
+        {} as ResizeObserver,
+      );
+    });
+
+    const canvas = container.querySelector("canvas")!;
+    expect(canvas).toHaveAttribute("width", "480");
+    expect(canvas).toHaveAttribute("height", "480");
+  });
+
+  it("does not measure container when size prop is provided", () => {
+    const observeSpy = vi.fn();
+    vi.stubGlobal(
+      "ResizeObserver",
+      class {
+        observe = observeSpy;
+        disconnect() {}
+      },
+    );
+    const getBCRSpy = vi.spyOn(Element.prototype, "getBoundingClientRect");
+
+    const { container } = render(
+      <JustDotQR text="hello" renderAs="canvas" size={300} />,
+    );
+
+    expect(observeSpy).not.toHaveBeenCalled();
+    expect(getBCRSpy).not.toHaveBeenCalled();
+    expect(container.querySelector("canvas")).toHaveAttribute("width", "300");
   });
 });

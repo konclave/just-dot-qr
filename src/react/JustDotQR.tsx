@@ -5,12 +5,18 @@ import type { JustDotQROptions, FinderShape } from "../types";
 
 export type JustDotQRProps = JustDotQROptions & {
   renderAs?: "svg" | "canvas";
+  /**
+   * Canvas only. When true, a ResizeObserver watches the parent container and
+   * repaints whenever its width changes. Has no effect when `size` is set
+   * explicitly or when `renderAs` is `"svg"`.
+   */
+  watchResize?: boolean;
 } & Omit<React.SVGProps<SVGSVGElement>, "width" | "height" | "viewBox">;
 
 export function JustDotQR(props: JustDotQRProps): React.ReactElement {
   const {
     text,
-    size = 400,
+    size, // no default — CanvasQR needs to distinguish undefined from 400
     dotColor = "#ffffff",
     backgroundColor = "transparent",
     dotScale = 0.6,
@@ -18,25 +24,36 @@ export function JustDotQR(props: JustDotQRProps): React.ReactElement {
     logo,
     errorCorrectionLevel = "H",
     renderAs = "svg",
+    watchResize,
     ...svgProps
   } = props;
 
-  const options: JustDotQROptions = {
+  if (renderAs === "canvas") {
+    return (
+      <CanvasQR
+        text={text}
+        size={size}
+        dotColor={dotColor}
+        backgroundColor={backgroundColor}
+        dotScale={dotScale}
+        finderStyle={finderStyle}
+        logo={logo}
+        errorCorrectionLevel={errorCorrectionLevel}
+        watchResize={watchResize}
+      />
+    );
+  }
+
+  const scene = buildScene({
     text,
-    size,
+    size: size ?? 400,
     dotColor,
     backgroundColor,
     dotScale,
     finderStyle,
     logo,
     errorCorrectionLevel,
-  };
-
-  if (renderAs === "canvas") {
-    return <CanvasQR {...options} />;
-  }
-
-  const scene = buildScene(options);
+  });
 
   return (
     <svg
@@ -76,6 +93,14 @@ export function JustDotQR(props: JustDotQRProps): React.ReactElement {
   );
 }
 
+interface CanvasQRProps extends JustDotQROptions {
+  watchResize?: boolean;
+}
+
+interface CanvasQRState {
+  measuredSize: number;
+}
+
 /**
  * Canvas renderer implemented as a class component to avoid hook dispatcher
  * dependency. Hooks rely on ReactCurrentDispatcher.current being set by the
@@ -84,25 +109,76 @@ export function JustDotQR(props: JustDotQRProps): React.ReactElement {
  * throw. Class lifecycle methods are called directly by the renderer — no
  * dispatcher involved.
  */
-class CanvasQR extends React.Component<JustDotQROptions> {
+class CanvasQR extends React.Component<CanvasQRProps, CanvasQRState> {
+  state: CanvasQRState = { measuredSize: 0 };
   private canvas: HTMLCanvasElement | null = null;
   private logoImage: HTMLImageElement | null = null;
+  private resizeObserver: ResizeObserver | null = null;
 
   componentDidMount() {
-    this.draw();
-    if (this.props.logo?.src) {
-      this.loadLogo(this.props.logo.src);
+    if (this.props.size === undefined) {
+      this.measureContainer();
+      if (this.props.watchResize) this.setupObserver();
     }
+    this.draw();
+    if (this.props.logo?.src) this.loadLogo(this.props.logo.src);
   }
 
-  componentDidUpdate(prevProps: JustDotQROptions) {
+  componentDidUpdate(prevProps: CanvasQRProps) {
+    // watchResize toggled on
+    if (!prevProps.watchResize && this.props.watchResize && this.props.size === undefined) {
+      this.setupObserver();
+    }
+    // watchResize toggled off
+    if (prevProps.watchResize && !this.props.watchResize) {
+      this.teardownObserver();
+    }
+    // switched from explicit size to auto-size
+    if (prevProps.size !== undefined && this.props.size === undefined) {
+      this.measureContainer();
+      if (this.props.watchResize) this.setupObserver();
+    }
+    // switched from auto-size to explicit size
+    if (prevProps.size === undefined && this.props.size !== undefined) {
+      this.teardownObserver();
+    }
+    // logo src changed
     if (prevProps.logo?.src !== this.props.logo?.src) {
       this.logoImage = null;
-      if (this.props.logo?.src) {
-        this.loadLogo(this.props.logo.src);
-      }
+      if (this.props.logo?.src) this.loadLogo(this.props.logo.src);
     }
     this.draw();
+  }
+
+  componentWillUnmount() {
+    this.teardownObserver();
+  }
+
+  private measureContainer() {
+    const parent = this.canvas?.parentElement;
+    if (!parent) return;
+    const width = Math.round(parent.getBoundingClientRect().width);
+    if (width > 0) this.setState({ measuredSize: width });
+  }
+
+  private setupObserver() {
+    if (this.resizeObserver) return;
+    const parent = this.canvas?.parentElement;
+    if (!parent) return;
+    this.resizeObserver = new ResizeObserver(([entry]) => {
+      const w = Math.round(entry.contentRect.width);
+      if (w > 0 && w !== this.state.measuredSize) this.setState({ measuredSize: w });
+    });
+    this.resizeObserver.observe(parent);
+  }
+
+  private teardownObserver() {
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = null;
+  }
+
+  private effectiveSize(): number {
+    return this.props.size ?? this.state.measuredSize;
   }
 
   private loadLogo(src: string) {
@@ -115,23 +191,25 @@ class CanvasQR extends React.Component<JustDotQROptions> {
   }
 
   private draw() {
-    if (!this.canvas) return;
+    const size = this.effectiveSize();
+    if (!size || !this.canvas) return;
     const ctx = this.canvas.getContext("2d");
     if (!ctx) return;
-    const scene = buildScene(this.props);
-    ctx.clearRect(0, 0, scene.size, scene.size);
+    const scene = buildScene({ ...this.props, size });
+    ctx.clearRect(0, 0, size, size);
     renderCanvas(scene, ctx, this.logoImage);
   }
 
   render() {
-    const scene = buildScene(this.props);
+    const size = this.effectiveSize();
     return (
       <canvas
         ref={(el) => {
           this.canvas = el;
         }}
-        width={scene.size}
-        height={scene.size}
+        {...(size
+          ? { width: size, height: size }
+          : { style: { display: "block", width: "100%" } })}
       />
     );
   }
