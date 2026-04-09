@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/konclave/just-dot-qr/compare/v1.1.0...v1.1.1) (2026-04-09)
+
+
+### Bug Fixes
+
+* npm package publishing ([fb93119](https://github.com/konclave/just-dot-qr/commit/fb931196fd3ec3eccc8865a4ffbbce8e57b7f73f))
+
 # [1.1.0](https://github.com/konclave/just-dot-qr/compare/v1.0.0...v1.1.0) (2026-04-07)
 
 
