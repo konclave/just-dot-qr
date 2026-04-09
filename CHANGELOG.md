@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/konclave/just-dot-qr/compare/v1.1.2...v1.1.3) (2026-04-09)
+
+
+### Bug Fixes
+
+* add typesVersions and react/ proxy for subpath resolution compatibility ([27e79fd](https://github.com/konclave/just-dot-qr/commit/27e79fd55915834f3dc9b8ad0d268e0c4b7b063a))
+
 ## [1.1.2](https://github.com/konclave/just-dot-qr/compare/v1.1.1...v1.1.2) (2026-04-09)
 
 
