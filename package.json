@@ -28,6 +28,11 @@
   "files": [
     "dist"
   ],
+  "typesVersions": {
+    "*": {
+      "react": ["./dist/react/index.d.ts"]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
