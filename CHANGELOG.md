@@ -1,32 +1,3 @@
-# 1.0.0 (2026-04-10)
-
-
-### Bug Fixes
-
-* add canvas roundRect polyfill to support old platforms ([d7e35b9](https://github.com/konclave/just-dot-qr/commit/d7e35b935a7be52d8eec13f48e5f9c71a0dddb9b))
-* add outExtension to emit .mjs for ESM output ([d73e398](https://github.com/konclave/just-dot-qr/commit/d73e39894cafbbc533eae42a69b300e8577335e6))
-* add typesVersions and react/ proxy for subpath resolution compatibility ([6bfdf07](https://github.com/konclave/just-dot-qr/commit/6bfdf0747e5d01f24246221a72fd07f3963d7789))
-* apply code review corrections across SVG renderer, React component, types, and tests ([713026c](https://github.com/konclave/just-dot-qr/commit/713026c0948abd23983d7f272497966cc04c51b0))
-* npm package publishing ([f02e058](https://github.com/konclave/just-dot-qr/commit/f02e05825710ef6be3aa2c71ffcea1c5ab085899))
-* remove unused vi import and add roundRect compat note ([80573da](https://github.com/konclave/just-dot-qr/commit/80573da2736bfdf14bd4f125749d91ae176f0ecb))
-* tests pass with plyfill, typing issues ([a0cc307](https://github.com/konclave/just-dot-qr/commit/a0cc307bb958f5de1d7a6323e116bd6b6110d2ec))
-* tests, add tests to pr requirements ([aea676a](https://github.com/konclave/just-dot-qr/commit/aea676aed503504c76073ebd1325216eca4fb552))
-* typescript types for react component ([3bb7983](https://github.com/konclave/just-dot-qr/commit/3bb7983361b0c4518032449aca4afd523b4c5118))
-
-
-### Features
-
-* add acceptance test and build verification (Task 10) ([1d342f1](https://github.com/konclave/just-dot-qr/commit/1d342f19b60287fca1492795e87fb6fe84477fb5))
-* add canvas react component renderer ([e23db3b](https://github.com/konclave/just-dot-qr/commit/e23db3b5233766b996ed5c8bd2a7f0b37fc7d5f6))
-* add canvas renderer and tests (Task 6) ([f25a3f8](https://github.com/konclave/just-dot-qr/commit/f25a3f8e6cdff913b7da52854096f00e9a62e610))
-* add logo padding option to expand dot cutout zone ([a234d6f](https://github.com/konclave/just-dot-qr/commit/a234d6f7c39867da6772e2695cdcc8560de3d5b6))
-* add PNG renderer (Task 7) ([72e1afe](https://github.com/konclave/just-dot-qr/commit/72e1afe124333c0ae0d43ed75589a737867ac25b))
-* add React component DotQR (Task 9) ([cebfd5b](https://github.com/konclave/just-dot-qr/commit/cebfd5ba48a9a452a70dec80d8dfa2af73e1cdf7))
-* add scene builder with finder pattern generation (Task 4) ([ccf41eb](https://github.com/konclave/just-dot-qr/commit/ccf41eb7bfec11d1435929cad4cde92b6ef40032))
-* add SVG renderer and tests (Task 5) ([8b878b6](https://github.com/konclave/just-dot-qr/commit/8b878b6d16f1b9479e58991cbae18c8b53ca5a44))
-* make canvas size computed ([74d36ad](https://github.com/konclave/just-dot-qr/commit/74d36ad10c684117992f4acfaa8bd7751981b73e))
-* react component canvas renderer ([2c037e0](https://github.com/konclave/just-dot-qr/commit/2c037e0f33d1d434dbf8acd032064259027c3d07))
-
 ## [1.1.3](https://github.com/konclave/just-dot-qr/compare/v1.1.2...v1.1.3) (2026-04-09)
 
 ### Bug Fixes
