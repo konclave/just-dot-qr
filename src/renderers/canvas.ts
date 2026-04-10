@@ -1,4 +1,5 @@
-import type { JustDotQRScene } from '../types'
+import "canvas-roundrect-polyfill";
+import type { JustDotQRScene } from "../types";
 
 /**
  * Renders a JustDotQRScene to an existing CanvasRenderingContext2D.
