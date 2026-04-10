@@ -1,5 +1,5 @@
-import type { JustDotQRScene } from '../types'
-import { renderCanvas } from './canvas'
+import type { JustDotQRScene } from '../types';
+import { renderCanvas } from './canvas';
 
 /**
  * Renders a JustDotQRScene to a PNG Blob using an offscreen canvas.
@@ -12,26 +12,26 @@ import { renderCanvas } from './canvas'
  */
 export async function renderPNG(
   scene: JustDotQRScene,
-  logoImage?: HTMLImageElement | ImageBitmap | null
+  logoImage?: HTMLImageElement | ImageBitmap | null,
 ): Promise<Blob> {
-  const canvas = document.createElement('canvas')
-  canvas.width = scene.size
-  canvas.height = scene.size
+  const canvas = document.createElement('canvas');
+  canvas.width = scene.size;
+  canvas.height = scene.size;
 
-  const ctx = canvas.getContext('2d')
+  const ctx = canvas.getContext('2d');
   if (!ctx) {
-    throw new Error('Failed to get 2D context from canvas')
+    throw new Error('Failed to get 2D context from canvas');
   }
 
-  renderCanvas(scene, ctx, logoImage)
+  renderCanvas(scene, ctx, logoImage);
 
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob) {
-        resolve(blob)
+        resolve(blob);
       } else {
-        reject(new Error('canvas.toBlob returned null'))
+        reject(new Error('canvas.toBlob returned null'));
       }
-    }, 'image/png')
-  })
+    }, 'image/png');
+  });
 }

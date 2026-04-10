@@ -1,8 +1,8 @@
-import { buildScene } from './core/scene'
-import { renderSVG } from './renderers/svg'
-import { renderCanvas } from './renderers/canvas'
-import { renderPNG } from './renderers/png'
-import type { JustDotQROptions, JustDotQRScene, Circle, FinderShape, LogoPlacement } from './types'
+import { buildScene } from './core/scene';
+import { renderCanvas } from './renderers/canvas';
+import { renderPNG } from './renderers/png';
+import { renderSVG } from './renderers/svg';
+import type { JustDotQROptions, JustDotQRScene, Circle, FinderShape, LogoPlacement } from './types';
 
 /**
  * Generate a QR code as an SVG string.
@@ -11,8 +11,8 @@ import type { JustDotQROptions, JustDotQRScene, Circle, FinderShape, LogoPlaceme
  * @returns SVG markup as a string
  */
 export function toSVG(options: JustDotQROptions): string {
-  const scene = buildScene(options)
-  return renderSVG(scene)
+  const scene = buildScene(options);
+  return renderSVG(scene);
 }
 
 /**
@@ -25,10 +25,10 @@ export function toSVG(options: JustDotQROptions): string {
 export function toCanvas(
   options: JustDotQROptions,
   ctx: CanvasRenderingContext2D,
-  logoImage?: HTMLImageElement | ImageBitmap | null
+  logoImage?: HTMLImageElement | ImageBitmap | null,
 ): void {
-  const scene = buildScene(options)
-  renderCanvas(scene, ctx, logoImage)
+  const scene = buildScene(options);
+  renderCanvas(scene, ctx, logoImage);
 }
 
 /**
@@ -40,10 +40,10 @@ export function toCanvas(
  */
 export async function toPNG(
   options: JustDotQROptions,
-  logoImage?: HTMLImageElement | ImageBitmap | null
+  logoImage?: HTMLImageElement | ImageBitmap | null,
 ): Promise<Blob> {
-  const scene = buildScene(options)
-  return renderPNG(scene, logoImage)
+  const scene = buildScene(options);
+  return renderPNG(scene, logoImage);
 }
 
 /**
@@ -53,7 +53,7 @@ export async function toPNG(
  * @param options - Configuration options for the QR code
  * @returns A JustDotQRScene describing all elements to render
  */
-export { buildScene }
+export { buildScene };
 
 // Type exports for user-facing API
-export type { JustDotQROptions, JustDotQRScene, Circle, FinderShape, LogoPlacement }
+export type { JustDotQROptions, JustDotQRScene, Circle, FinderShape, LogoPlacement };

@@ -1,34 +1,35 @@
-import React from "react";
-import { buildScene } from "../core/scene";
-import { renderCanvas } from "../renderers/canvas";
-import type { JustDotQROptions, FinderShape } from "../types";
+import React from 'react';
+
+import { buildScene } from '../core/scene';
+import { renderCanvas } from '../renderers/canvas';
+import type { JustDotQROptions, FinderShape } from '../types';
 
 export type JustDotQRProps = JustDotQROptions & {
-  renderAs?: "svg" | "canvas";
+  renderAs?: 'svg' | 'canvas';
   /**
    * Canvas only. When true, a ResizeObserver watches the parent container and
    * repaints whenever its width changes. Has no effect when `size` is set
    * explicitly or when `renderAs` is `"svg"`.
    */
   watchResize?: boolean;
-} & Omit<React.SVGProps<SVGSVGElement>, "width" | "height" | "viewBox">;
+} & Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'viewBox'>;
 
 export function JustDotQR(props: JustDotQRProps): React.ReactElement {
   const {
     text,
     size, // no default — CanvasQR needs to distinguish undefined from 400
-    dotColor = "#ffffff",
-    backgroundColor = "transparent",
+    dotColor = '#ffffff',
+    backgroundColor = 'transparent',
     dotScale = 0.6,
-    finderStyle = "rounded",
+    finderStyle = 'rounded',
     logo,
-    errorCorrectionLevel = "H",
-    renderAs = "svg",
+    errorCorrectionLevel = 'H',
+    renderAs = 'svg',
     watchResize,
     ...svgProps
   } = props;
 
-  if (renderAs === "canvas") {
+  if (renderAs === 'canvas') {
     return (
       <CanvasQR
         text={text}
@@ -64,7 +65,7 @@ export function JustDotQR(props: JustDotQRProps): React.ReactElement {
       {...svgProps}
     >
       {/* Background */}
-      {scene.backgroundColor !== "transparent" && (
+      {scene.backgroundColor !== 'transparent' && (
         <rect width="100%" height="100%" fill={scene.backgroundColor} />
       )}
 
@@ -193,7 +194,7 @@ class CanvasQR extends React.Component<CanvasQRProps, CanvasQRState> {
   private draw() {
     const size = this.effectiveSize();
     if (!size || !this.canvas) return;
-    const ctx = this.canvas.getContext("2d");
+    const ctx = this.canvas.getContext('2d');
     if (!ctx) return;
     const scene = buildScene({ ...this.props, size });
     ctx.clearRect(0, 0, size, size);
@@ -207,9 +208,7 @@ class CanvasQR extends React.Component<CanvasQRProps, CanvasQRState> {
         ref={(el) => {
           this.canvas = el;
         }}
-        {...(size
-          ? { width: size, height: size }
-          : { style: { display: "block", width: "100%" } })}
+        {...(size ? { width: size, height: size } : { style: { display: 'block', width: '100%' } })}
       />
     );
   }
@@ -224,7 +223,7 @@ function renderFinder(finder: FinderShape): React.ReactElement {
   const cx = round2(x + 3.5 * cellSize);
   const cy = round2(y + 3.5 * cellSize);
 
-  if (style === "squares") {
+  if (style === 'squares') {
     return (
       <g>
         <rect
@@ -247,7 +246,7 @@ function renderFinder(finder: FinderShape): React.ReactElement {
     );
   }
 
-  if (style === "rounded") {
+  if (style === 'rounded') {
     return (
       <g>
         <rect
