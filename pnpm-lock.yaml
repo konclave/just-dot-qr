@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      canvas-roundrect-polyfill:
+        specifier: ^0.0.1
+        version: 0.0.1
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
@@ -848,6 +851,9 @@ packages:
   camelcase@5.3.1:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
+
+  canvas-roundrect-polyfill@0.0.1:
+    resolution: {integrity: sha512-yWq+R3U3jE+coOeEb3a3GgE2j/0MMiDKM/QpLb6h9ihf5fGY9UXtvK9o4vNqjWXoZz7/3EaSVU3IX53TvFFUOw==}
 
   canvas@3.2.2:
     resolution: {integrity: sha512-duEt4h1HHu9sJZyVKfLRXR6tsKPY7cEELzxSRJkwddOXYvQT3P/+es98SV384JA0zMOZ5s+9gatnGfM6sL4Drg==}
@@ -3240,6 +3246,8 @@ snapshots:
   callsites@3.1.0: {}
 
   camelcase@5.3.1: {}
+
+  canvas-roundrect-polyfill@0.0.1: {}
 
   canvas@3.2.2:
     dependencies:
