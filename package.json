@@ -55,7 +55,8 @@
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepare": "lefthook install"
   },
   "dependencies": {
     "canvas-roundrect-polyfill": "^0.0.1",
@@ -77,6 +78,7 @@
     "@vitest/coverage-v8": "^3.0.0",
     "canvas": "^3.2.2",
     "jsdom": "^29.0.1",
+    "lefthook": "^2.1.5",
     "oxfmt": "^0.44.0",
     "oxlint": "^1.59.0",
     "react": "^19.2.4",
