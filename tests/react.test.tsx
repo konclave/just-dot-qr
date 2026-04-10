@@ -134,9 +134,9 @@ describe('JustDotQR — canvas mode', () => {
   it('calls renderCanvas again when a prop changes', () => {
     const spy = vi.spyOn(canvasRenderer, 'renderCanvas');
     const { rerender } = render(
-      <JustDotQR text="hello" renderAs="canvas" size={400} dotColor="#ffffff" />,
+      <JustDotQR text="hello" renderAs="canvas" dotColor="#ffffff" />,
     );
-    rerender(<JustDotQR text="hello" renderAs="canvas" size={400} dotColor="#000000" />);
+    rerender(<JustDotQR text="hello" renderAs="canvas" dotColor="#000000" />);
     expect(spy).toHaveBeenCalledTimes(2);
   });
 
