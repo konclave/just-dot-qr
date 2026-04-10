@@ -5,7 +5,8 @@
     "moduleResolution": "bundler",
     "strict": true,
     "jsx": "react-jsx",
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true
   },
   "include": ["src", "tests", "assets", "vitest.setup.ts"]
 }
