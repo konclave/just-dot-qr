@@ -1,0 +1,6 @@
+{
+  "plugins": ["typescript", "import"],
+  "env": {
+    "es2022": true
+  }
+}

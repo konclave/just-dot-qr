@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 **dot-qr** is a QR code generation library where modules are rendered as circles instead of the traditional squares. Key characteristics:
+
 - Standalone JavaScript/TypeScript library
 - React component wrapper for React integration
 - Supports a centered logo (circular empty space in the middle)
@@ -14,6 +15,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Architecture Intent
 
 The library has two layers:
+
 1. **Core library** — pure QR generation logic, framework-agnostic, outputs SVG/canvas
 2. **React wrapper** — component that wraps the core library for React usage
 

@@ -32,10 +32,10 @@ npm install just-dot-qr react react-dom
 ## Quick start
 
 ```ts
-import { toSVG } from 'just-dot-qr'
+import { toSVG } from 'just-dot-qr';
 
-const svg = toSVG({ text: 'https://example.com' })
-document.body.innerHTML = svg
+const svg = toSVG({ text: 'https://example.com' });
+document.body.innerHTML = svg;
 ```
 
 ## API
@@ -45,7 +45,7 @@ document.body.innerHTML = svg
 Returns the QR code as an SVG string.
 
 ```ts
-import { toSVG } from 'just-dot-qr'
+import { toSVG } from 'just-dot-qr';
 
 const svg = toSVG({
   text: 'https://example.com',
@@ -53,7 +53,7 @@ const svg = toSVG({
   dotColor: '#1a1a1a',
   backgroundColor: '#ffffff',
   finderStyle: 'rounded',
-})
+});
 ```
 
 ### `toCanvas(options, ctx, logoImage?): void`
@@ -61,26 +61,26 @@ const svg = toSVG({
 Renders the QR code onto an existing `CanvasRenderingContext2D`.
 
 ```ts
-import { toCanvas } from 'just-dot-qr'
+import { toCanvas } from 'just-dot-qr';
 
-const canvas = document.getElementById('canvas') as HTMLCanvasElement
-const ctx = canvas.getContext('2d')!
+const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d')!;
 
-toCanvas({ text: 'https://example.com', size: 400 }, ctx)
+toCanvas({ text: 'https://example.com', size: 400 }, ctx);
 ```
 
 To render a logo, pass a pre-loaded `HTMLImageElement` or `ImageBitmap` as the third argument:
 
 ```ts
-const logoImg = new Image()
+const logoImg = new Image();
 logoImg.onload = () => {
   toCanvas(
     { text: 'https://example.com', logo: { src: '/logo.png', width: 80, height: 80 } },
     ctx,
-    logoImg
-  )
-}
-logoImg.src = '/logo.png'
+    logoImg,
+  );
+};
+logoImg.src = '/logo.png';
 ```
 
 ### `toPNG(options, logoImage?): Promise<Blob>`
@@ -88,10 +88,10 @@ logoImg.src = '/logo.png'
 Returns the QR code as a PNG `Blob`.
 
 ```ts
-import { toPNG } from 'just-dot-qr'
+import { toPNG } from 'just-dot-qr';
 
-const blob = await toPNG({ text: 'https://example.com', size: 800 })
-const url = URL.createObjectURL(blob)
+const blob = await toPNG({ text: 'https://example.com', size: 800 });
+const url = URL.createObjectURL(blob);
 ```
 
 ### `buildScene(options): JustDotQRScene`
@@ -99,9 +99,9 @@ const url = URL.createObjectURL(blob)
 Advanced escape hatch. Returns the intermediate render model (dots, finders, logo placement) without rendering. Useful for building custom renderers.
 
 ```ts
-import { buildScene } from 'just-dot-qr'
+import { buildScene } from 'just-dot-qr';
 
-const scene = buildScene({ text: 'https://example.com' })
+const scene = buildScene({ text: 'https://example.com' });
 // scene.dots — array of Circle objects
 // scene.finders — array of FinderShape objects
 // scene.logo — optional LogoPlacement
@@ -111,19 +111,19 @@ const scene = buildScene({ text: 'https://example.com' })
 
 All options are part of `JustDotQROptions`:
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `text` | `string` | required | The string to encode |
-| `size` | `number` | `400` | QR code width and height in pixels |
-| `dotColor` | `string` | `'#ffffff'` | Color of the circular dots |
-| `backgroundColor` | `string` | `'transparent'` | Background color. Accepts any CSS color or `'transparent'` |
-| `dotScale` | `number` | `0.6` | Dot size relative to its grid cell (0–1) |
-| `finderStyle` | `'squares' \| 'rounded' \| 'circles'` | `'circles'` | Visual style of the three finder patterns |
-| `errorCorrectionLevel` | `'L' \| 'M' \| 'Q' \| 'H'` | `'H'` | QR error correction level. Use `'H'` when a logo is present |
-| `logo.src` | `string` | — | URL or data URI of the logo image |
-| `logo.width` | `number` | — | Width of the logo in pixels. When omitted, no dot cutout is applied |
-| `logo.height` | `number` | `logo.width` | Height of the logo in pixels |
-| `logo.padding` | `number` | `0` | Extra pixels of dot-free space around the logo on each side |
+| Option                 | Type                                  | Default         | Description                                                         |
+| ---------------------- | ------------------------------------- | --------------- | ------------------------------------------------------------------- |
+| `text`                 | `string`                              | required        | The string to encode                                                |
+| `size`                 | `number`                              | `400`           | QR code width and height in pixels                                  |
+| `dotColor`             | `string`                              | `'#ffffff'`     | Color of the circular dots                                          |
+| `backgroundColor`      | `string`                              | `'transparent'` | Background color. Accepts any CSS color or `'transparent'`          |
+| `dotScale`             | `number`                              | `0.6`           | Dot size relative to its grid cell (0–1)                            |
+| `finderStyle`          | `'squares' \| 'rounded' \| 'circles'` | `'circles'`     | Visual style of the three finder patterns                           |
+| `errorCorrectionLevel` | `'L' \| 'M' \| 'Q' \| 'H'`            | `'H'`           | QR error correction level. Use `'H'` when a logo is present         |
+| `logo.src`             | `string`                              | —               | URL or data URI of the logo image                                   |
+| `logo.width`           | `number`                              | —               | Width of the logo in pixels. When omitted, no dot cutout is applied |
+| `logo.height`          | `number`                              | `logo.width`    | Height of the logo in pixels                                        |
+| `logo.padding`         | `number`                              | `0`             | Extra pixels of dot-free space around the logo on each side         |
 
 ## React component
 
@@ -132,7 +132,7 @@ npm install just-dot-qr react react-dom
 ```
 
 ```tsx
-import { JustDotQR } from 'just-dot-qr/react'
+import { JustDotQR } from 'just-dot-qr/react';
 ```
 
 ### SVG mode (default)
@@ -156,12 +156,7 @@ Renders an inline `<svg>`. Any extra prop is forwarded to the `<svg>` element (`
 Pass `renderAs="canvas"` to render a `<canvas>` element instead of SVG.
 
 ```tsx
-<JustDotQR
-  text="https://example.com"
-  renderAs="canvas"
-  size={300}
-  dotColor="#1a1a1a"
-/>
+<JustDotQR text="https://example.com" renderAs="canvas" size={300} dotColor="#1a1a1a" />
 ```
 
 ### Auto-size from container
@@ -196,12 +191,12 @@ Add `watchResize` to repaint whenever the container width changes (uses `ResizeO
 Logo images can be imported as modules (Vite / webpack / Next.js):
 
 ```tsx
-import logoSrc from './logo.png'
+import logoSrc from './logo.png';
 
 <JustDotQR
   text="https://example.com"
   logo={{ src: logoSrc, width: 186, height: 78, padding: 4 }}
-/>
+/>;
 ```
 
 In canvas mode, the logo is loaded from the `src` URL automatically — no need to pre-load the image yourself.
@@ -210,10 +205,10 @@ In canvas mode, the logo is loaded from the `src` URL automatically — no need 
 
 Accepts all `JustDotQROptions` (see table above) plus:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `renderAs` | `'svg' \| 'canvas'` | `'svg'` | Output element type |
-| `watchResize` | `boolean` | `false` | Canvas only. Attach a `ResizeObserver` on the parent and repaint on width changes |
+| Prop          | Type                | Default | Description                                                                       |
+| ------------- | ------------------- | ------- | --------------------------------------------------------------------------------- |
+| `renderAs`    | `'svg' \| 'canvas'` | `'svg'` | Output element type                                                               |
+| `watchResize` | `boolean`           | `false` | Canvas only. Attach a `ResizeObserver` on the parent and repaint on width changes |
 
 In SVG mode, all remaining props are forwarded to the underlying `<svg>` element (`className`, `id`, `style`, `aria-*`, event handlers, etc.).
 

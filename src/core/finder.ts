@@ -1,4 +1,4 @@
-import type { FinderShape } from '../types'
+import type { FinderShape } from '../types';
 
 /**
  * Returns an array of exactly 3 FinderShape objects representing the QR code
@@ -13,7 +13,7 @@ export function getFinderShapes(
   matrixSize: number,
   cellSize: number,
   style: 'squares' | 'rounded' | 'circles',
-  color: string
+  color: string,
 ): FinderShape[] {
   return [
     // Top-left: module (0,0) to (6,6)
@@ -40,5 +40,5 @@ export function getFinderShapes(
       style,
       color,
     },
-  ]
+  ];
 }
