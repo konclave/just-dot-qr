@@ -1,11 +1,10 @@
 ## [1.1.4](https://github.com/konclave/just-dot-qr/compare/v1.1.3...v1.1.4) (2026-04-10)
 
-
 ### Bug Fixes
 
-* add canvas roundRect polyfill to support old platforms ([d7e35b9](https://github.com/konclave/just-dot-qr/commit/d7e35b935a7be52d8eec13f48e5f9c71a0dddb9b))
-* tests pass with plyfill, typing issues ([a0cc307](https://github.com/konclave/just-dot-qr/commit/a0cc307bb958f5de1d7a6323e116bd6b6110d2ec))
-* tests, add tests to pr requirements ([aea676a](https://github.com/konclave/just-dot-qr/commit/aea676aed503504c76073ebd1325216eca4fb552))
+- add canvas roundRect polyfill to support old platforms ([d7e35b9](https://github.com/konclave/just-dot-qr/commit/d7e35b935a7be52d8eec13f48e5f9c71a0dddb9b))
+- tests pass with plyfill, typing issues ([a0cc307](https://github.com/konclave/just-dot-qr/commit/a0cc307bb958f5de1d7a6323e116bd6b6110d2ec))
+- tests, add tests to pr requirements ([aea676a](https://github.com/konclave/just-dot-qr/commit/aea676aed503504c76073ebd1325216eca4fb552))
 
 ## [1.1.3](https://github.com/konclave/just-dot-qr/compare/v1.1.2...v1.1.3) (2026-04-09)
 
